@@ -1,0 +1,177 @@
+<div class="dataset" [class.minimize]="minimized" *ngIf="value.type == 'CURVE'">
+  <div class="dataset-header" [ngStyle]="{ 'background': (value.data.visible) ? value.data.color : '#aaa' }">
+    <div class="icon" (click)="minimized = !minimized" *ngIf="!minimized">
+      <i class="fas fa-angle-down"></i>
+    </div>
+    <div class="icon" (click)="minimized = !minimized" *ngIf="minimized">
+      <i class="fas fa-angle-right"></i>
+    </div>
+    <div class="text" (click)="minimized = !minimized">{{ value.data.name }}</div>
+    <div class="icon" (click)="value.data.visible = !value.data.visible" *ngIf="value.data.visible">
+      <i class="fas fa-eye"></i>
+    </div>
+    <div class="icon" (click)="value.data.visible = !value.data.visible" *ngIf="!value.data.visible">
+      <i class="fas fa-eye-slash"></i>
+    </div>
+    <div class="icon" (click)="onDelete()">
+      <i class="fas fa-eraser"></i>
+    </div>
+  </div>
+  <div class="dataset-body">
+    <form autocomplete="off">
+      <div class="form">
+        <div class="field-group">
+          <div class="field wide">
+            <input type="text" name="dsName" [(ngModel)]="value.data.name" (input)="onChange(value)"
+              (blur)="onTouched()">
+          </div>
+          <div class="field">
+            <color-picker name="lineColor" [(ngModel)]="value.data.color" (input)="onChange(value)"
+              (blur)="onTouched()"></color-picker>
+          </div>
+        </div>
+        <div class="field">
+          <div class="input">
+            <div class="label left">
+              <div class="text">X</div>
+            </div>
+            <input type="text" name="dsXInput" [(ngModel)]="value.data.input.x" (input)="onChange(value)"
+              (blur)="onTouched()">
+          </div>
+        </div>
+        <div class="field">
+          <div class="input">
+            <div class="label left">
+              <div class="text">Y</div>
+            </div>
+            <input type="text" name="dsYInput" [(ngModel)]="value.data.input.y" (input)="onChange(value)"
+              (blur)="onTouched()">
+          </div>
+        </div>
+        <div class="field">
+          <div class="input">
+            <div class="label left">Line Style</div>
+            <select [(ngModel)]="value.data.lineStyle" name="lineStyle">
+              <option value="default">Default</option>
+              <option value="dashed">Dashed</option>
+              <option value="dotted">Dotted</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="dataset" [class.minimize]="minimized" *ngIf="value.type == 'POINT_MARK'">
+  <div class="dataset-header" [ngStyle]="{ 'background': (value.data.visible) ? value.data.color : '#aaa' }">
+    <div class="icon" (click)="minimized = !minimized" *ngIf="!minimized">
+      <i class="fas fa-angle-down"></i>
+    </div>
+    <div class="icon" (click)="minimized = !minimized" *ngIf="minimized">
+      <i class="fas fa-angle-right"></i>
+    </div>
+    <div class="text" (click)="minimized = !minimized">{{ value.data.name }}</div>
+    <div class="icon" (click)="value.data.visible = !value.data.visible" *ngIf="value.data.visible">
+      <i class="fas fa-eye"></i>
+    </div>
+    <div class="icon" (click)="value.data.visible = !value.data.visible" *ngIf="!value.data.visible">
+      <i class="fas fa-eye-slash"></i>
+    </div>
+    <div class="icon" (click)="onDelete()">
+      <i class="fas fa-eraser"></i>
+    </div>
+  </div>
+  <div class="dataset-body">
+    <form autocomplete="off">
+      <div class="form">
+        <div class="field-group">
+          <div class="field wide">
+            <input type="text" name="dsName" [(ngModel)]="value.data.name" (input)="onChange(value)"
+              (blur)="onTouched()">
+          </div>
+          <div class="field">
+            <color-picker name="lineColor" [(ngModel)]="value.data.color" (input)="onChange(value)"
+              (blur)="onTouched()"></color-picker>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <div class="input">
+              <div class="label left">
+                <div class="text">x</div>
+              </div>
+              <input type="number" name="dsXPoint" [(ngModel)]="value.data.x" (input)="onChange(value)"
+                (blur)="onTouched()">
+            </div>
+          </div>
+          <div class="field">
+            <div class="input">
+              <div class="label left">
+                <div class="text">y</div>
+              </div>
+              <input type="text" name="dsYPoint" [(ngModel)]="value.data.y" (input)="onChange(value)"
+                (blur)="onTouched()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="dataset" [class.minimize]="minimized" *ngIf="value.type == 'GRID'">
+  <div class="dataset-header" [ngStyle]="{ 'background': value.data.color }">
+    <div class="icon" (click)="minimized = !minimized" *ngIf="!minimized">
+      <i class="fas fa-angle-down"></i>
+    </div>
+    <div class="icon" (click)="minimized = !minimized" *ngIf="minimized">
+      <i class="fas fa-angle-right"></i>
+    </div>
+    <div class="text" (click)="minimized = !minimized">{{ value.data.name }}</div>
+    <div class="icon" (click)="onDelete()">
+      <i class="fas fa-eraser"></i>
+    </div>
+  </div>
+  <div class="dataset-body">
+    <form autocomplete="off">
+      <div class="form">
+        <div class="field-group">
+          <div class="field wide">
+            <input type="text" name="gridName" [(ngModel)]="value.data.name" (input)="onChange(value)"
+              (blur)="onTouched()">
+          </div>
+          <div class="field">
+            <color-picker name="gridColor" [(ngModel)]="value.data.color" (input)="onChange(value)"
+              (blur)="onTouched()"></color-picker>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field wide">
+            <div class="input">
+              <div class="label left">1/</div>
+              <input type="text" name="unitMultiply" [(ngModel)]="value.data.unitMultiply" (input)="onChange(value)"
+                (blur)="onTouched()">
+            </div>
+          </div>
+          <div class="field">
+            <div class="checkbox">
+              <input type="checkbox" id="my-checkbox-{{ value.data.unitMultiply }}" name="grid_x" [(ngModel)]="value.data.x" (input)="onChange(value)"
+                (blur)="onTouched()">
+              <label for="my-checkbox-{{ value.data.unitMultiply }}"></label>
+            </div>
+            &nbsp; <label class="right">X</label>
+          </div>
+          <div class="field">
+            <div class="checkbox">
+              <input type="checkbox" id="my-checkbox-{{ value.data.unitMultiply }}-2" name="grid_y" [(ngModel)]="value.data.y"
+                (input)="onChange(value)" (blur)="onTouched()">
+              <label for="my-checkbox-{{ value.data.unitMultiply }}-2"></label>
+            </div>
+            &nbsp; <label class="right">Y</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

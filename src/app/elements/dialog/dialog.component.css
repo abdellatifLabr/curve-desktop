@@ -1,0 +1,50 @@
+:host {
+    display: flex;
+    background: none;
+    border: none;
+}
+.overlay {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 99;
+    overflow: hidden;
+}
+
+.overlay .modal {
+    margin: 10% auto;
+    width: 400px;
+    background: #eaeaea;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.overlay .modal .header {
+    padding: 10px;
+    font-size: 15px;
+    font-family: 'Roboto Medium';
+    color: #888;
+    border-bottom: 1px solid #ccc;
+}
+
+.overlay .modal .body {
+    padding: 10px;
+}
+
+.overlay .modal .footer {
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #ccc;
+}
+
+.overlay .modal.large {
+    width: 700px;
+}
+
+.overlay .modal.small {
+    width: 350px;
+}

@@ -1,0 +1,84 @@
+.dataset {
+  background: #eaeaea;
+  border-radius: 4px;
+}
+
+.dataset .dataset-header {
+  display: flex;
+  border-bottom: 1px solid #fff;
+  background: rgb(64, 124, 214);
+  color: #fff;
+  border-radius: 4px 4px 0px 0px;
+  transition: background linear 0.1s 0s;
+  cursor: pointer;
+}
+
+.dataset-header div {
+  padding: 8px 0px 8px 8px;
+}
+
+.dataset-header div:last-child {
+  padding-right: 8px;
+}
+
+.dataset .dataset-header .text {
+  flex-grow: 1;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.dataset .dataset-header .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 26px;
+  min-width: 26px;
+  cursor: pointer;
+  transition: background linear 0.1s 0s;
+  position: relative;
+  font-size: 14px;
+}
+
+.dataset .dataset-header .icon:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dataset .dataset-header .icon .menu {
+  position: absolute;
+  background: #fff;
+  color: #000;
+  top: 100%;
+  left: 0px;
+  border-radius: 0px 0px 4px 4px;
+  border: 1px solid #ddd;
+  display: none;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.dataset .dataset-header .icon.show-menu .menu {
+  display: block;
+}
+
+.dataset .dataset-header .icon .menu .menu-item {
+  padding: 5px 8px;
+  font-size: 13px;
+}
+
+.dataset .dataset-header .icon .menu .menu-item:hover {
+  background: #ededed;
+}
+
+.dataset .dataset-body {
+  padding: 8px;
+}
+
+.dataset.minimize .dataset-body {
+  height: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.dataset.minimize .dataset-header {
+  border-radius: 4px;
+}

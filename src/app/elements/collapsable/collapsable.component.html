@@ -1,0 +1,14 @@
+<div class="collapsable">
+  <div class="header">
+    <div class="text">{{ title }}</div>
+    <div class="icon" (click)="toggleCollapse()" *ngIf="collapsed">
+      <i class="fas fa-angle-left"></i>
+    </div>
+    <div class="icon" (click)="toggleCollapse()" *ngIf="!collapsed">
+      <i class="fas fa-angle-down"></i>
+    </div>
+  </div>
+  <div class="body" [class.hide]="collapsed">
+    <ng-content></ng-content>
+  </div>
+</div>

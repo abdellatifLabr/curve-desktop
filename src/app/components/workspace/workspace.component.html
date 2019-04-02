@@ -1,0 +1,13 @@
+<div class="workspace">
+  <div class="side-menu">
+    <app-side-menu (view)="onViewSet($event)"></app-side-menu>
+  </div>
+  <div class="display">
+    <app-display *ngIf="view" [data]="data" [options]="options" 
+                (expand)="expandedView = !expandedView"></app-display>
+  </div>
+  <div class="control-panel-container">
+    <app-control *ngIf="view" [view]="view" [hidden]="expandedView"
+      (datasets)="onDatasets($event)" (options)="onOptions($event)"></app-control>
+  </div>
+</div>

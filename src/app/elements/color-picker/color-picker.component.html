@@ -1,0 +1,4 @@
+<div class="color-picker" [ngStyle]="{ 'background': value }">
+  <input type="color" name="color-picker" [(ngModel)]="value" (input)="onChange(value)" (blur)="onTouched()" [disabled]="disabled">
+</div>
+<label class="right" *ngIf="!noLabel">{{ label }}</label>

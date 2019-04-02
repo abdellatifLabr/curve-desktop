@@ -1,0 +1,129 @@
+<div class="menu-open" [hidden]="!menu.hidden" (click)="menu.hidden = false">
+  <i class="fas fa-bars"></i>
+</div>
+<div class="menu" #menu>
+  <div class="container">
+    <div class="content">
+      <div class="section">
+        <div class="header">
+          <div class="text">Projects</div>
+          <div class="icon" (click)="toggleNewProjectModal()">
+              <i class="fas fa-plus"></i>
+            </div>
+          <div class="icon" (click)="import.click()">
+            <i class="fas fa-folder-open"></i>
+            <input type="file" name="project_import" #import hidden (change)="onProjectImport($event)" accept=".project.crv">
+          </div>
+          <div class="icon" (click)="projectsSection.hidden = !projectsSection.hidden" *ngIf="!projectsSection.hidden">
+            <i class="fas fa-angle-down"></i>
+          </div>
+          <div class="icon" (click)="projectsSection.hidden = !projectsSection.hidden" *ngIf="projectsSection.hidden">
+            <i class="fas fa-angle-left"></i>
+          </div>
+        </div>
+        <div class="body" #projectsSection>
+            <div class="list">
+                <span class="empty-message" *ngIf="projects.length == 0">Click + to create a new project.</span>
+                <div class="list-item" [class.active]="isActiveProject(project)" *ngFor="let project of projects"
+                  (click)="setActiveProject(project)">
+                  <div class="name">
+                    <inline-edit 
+                      [type]="text" 
+                      [(ngModel)]="project.title" 
+                      [disabled]="!isActiveProject(project)"
+                      (done)="editProject(project)" 
+                      [style]="{
+                        'text-align': 'left',
+                        'color': (isActiveProject(project)) ? '#fff' : '#aaa'
+                      }" 
+                      [focusStyle]="{
+                        'background': '#3c3c3c',
+                        'text-align': 'left',
+                        'color': '#fff'
+                      }"></inline-edit>
+                  </div>
+                  <div class="options" *ngIf="isActiveProject(project)">
+                    <div class="icon" (click)="onProjectDelete(project)"><i class="fas fa-trash"></i></div>
+                    <div class="icon" (click)="exportProject(project)"><i class="fas fa-file-download"></i></div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+      <div class="section viewsSection">
+        <div class="header">
+          <div class="text">Views</div>
+          <div class="icon" (click)="viewsSection.hidden = !viewsSection.hidden" *ngIf="!viewsSection.hidden">
+            <i class="fas fa-angle-down"></i>
+          </div>
+          <div class="icon" (click)="viewsSection.hidden = !viewsSection.hidden" *ngIf="viewsSection.hidden">
+            <i class="fas fa-angle-left"></i>
+          </div>
+        </div>
+        <div class="body" #viewsSection>
+          <div class="list">
+            <span class="empty-message" *ngIf="project && views.length == 0">No views created for this project.</span>
+            <div class="list-item" [class.active]="isActiveView(view)" *ngFor="let view of views"
+              (click)="setActiveView(view)">
+              <div class="name">
+                <inline-edit 
+                  [type]="text" 
+                  [(ngModel)]="view.name" 
+                  [disabled]="!isActiveView(view)"
+                  (done)="editView(view)" 
+                  [style]="{
+                    'text-align': 'left',
+                    'color': (isActiveView(view)) ? '#fff' : '#aaa'
+                  }" 
+                  [focusStyle]="{
+                    'background': '#3c3c3c',
+                    'text-align': 'left',
+                    'color': '#fff'
+                  }"></inline-edit>
+              </div>
+              <div class="options" *ngIf="isActiveView(view)">
+                <div class="icon" (click)="onViewDelete(view)"><i class="fas fa-trash"></i></div>
+                <div class="icon" (click)="exportView(view)"><i class="fas fa-file-download"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="new-view-form">
+      <div class="form">
+        <form autocomplete="off" (submit)="(newView.name.length > 0) ? createView() : null">
+          <div class="field">
+            <input type="text" name="newViewName" [disabled]="projects.length == 0" [(ngModel)]="newView.name" placeholder="+ New View">
+          </div>
+        </form>
+      </div>
+      <div class="options">
+        <div class="icon" (click)="importViewInput.click()">
+          <i class="fas fa-folder-open"></i>
+          <input type="file" [disabled]="projects.length == 0" name="export_view" accept=".view.crv" (change)="onImportView($event)" hidden
+            #importViewInput>
+        </div>
+        <div class="icon" (click)="menu.hidden = true"><i class="fas fa-times"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal title="Create New Project" [show]="newProjectModal">
+    <form (submit)="(newProject.title.length > 0) ? createNewProject() : null" autocomplete="off">
+      <div class="form">
+        <div class="field">
+          <div class="input large">
+            <input type="text" name="projectTitle" [(ngModel)]="newProject.title" placeholder="Title">
+          </div>
+        </div>
+        <div class="field right">
+          <div class="btn-group">
+            <button type="submit" class="large success">Create</button>
+            <button type="button" class="large default" (click)="toggleNewProjectModal()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal>

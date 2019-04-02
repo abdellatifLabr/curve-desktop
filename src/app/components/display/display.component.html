@@ -1,0 +1,56 @@
+<div class="container" [ngStyle]="{ 'cursor': states[state].cursor }">
+  <div class="canvas-container">
+    <canvas #mainCanvas mwlDraggable 
+      [dragAxis]="{ x: state == 'move', y: state == 'move' }"
+      (dragEnd)="onDragEnd($event)"
+      (mousemove)="onMouseMovingInsideCanvas($event)" 
+      (mouseleave)="onMouseLeftCanvas()"
+      [ngStyle]="{
+        'transform': 'scale('+ zoom.value +', '+ zoom.value +') translate('+position.x+'px, '+position.y+'px)'
+      }">
+    </canvas>
+  </div>
+  <div class="point-indicator" [ngStyle]="{ 'transform': 'translate('+indicator.pos.x+'px, '+indicator.pos.y+'px)',
+                'display': ((state == 'default') && isMouseInCanvas) ? 'block' : 'none'}">
+    <div class="item" *ngFor="let item of indicator.data">
+      <div class="prop">{{ item.prop }}:</div>
+      <div class="val">{{ item.val }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="toolbar-container">
+  <div class="toolbar">
+    <div class="item icon" (click)="setState('move')" [class.active]="state == 'move'">
+      <i class="fas fa-arrows-alt"></i>
+    </div>
+    <div class="item icon" (click)="setState('default')" [class.active]="state == 'default'">
+      <i class="fas fa-crosshairs"></i>
+    </div>
+    <div class="item separator"></div>
+    <div class="item icon" (click)="zoomIn()" [class.disabled]="zoom.value >= zoom.max">
+      <i class="fas fa-search-plus"></i>
+    </div>
+    <div class="button item" (click)="resetZoom()" [class.disabled]="zoom.value == 1">
+      100%
+    </div>
+    <div class="item icon" (click)="zoomOut()" [class.disabled]="zoom.value <= zoom.min">
+      <i class="fas fa-search-minus"></i>
+    </div>
+    <div class="separator item"></div>
+    <div class="item icon" *ngIf="!expandedView" (click)="toggleExpand()">
+      <i class="fas fa-expand"></i>
+    </div>
+    <div class="item icon" *ngIf="expandedView" (click)="toggleExpand()">
+      <i class="fas fa-compress"></i>
+    </div>
+    <div class="item separator"></div>
+    <div class="item icon" (click)="downloadModal = !downloadModal">
+      <i class="fas fa-download"></i>
+    </div>
+  </div>
+</div>
+
+<modal title="Download View" [show]="downloadModal" size="small">
+  <button class="primary large block" (click)="onDownload()">PNG</button>
+</modal>

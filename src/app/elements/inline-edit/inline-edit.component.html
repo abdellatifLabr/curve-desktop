@@ -1,0 +1,14 @@
+<input
+    [type]="type" 
+    [disabled]="disabled"
+    name="inline-edit" 
+    [(ngModel)]="value" 
+    (input)="onChange(value)"
+    (blur)="onBlur()"
+    (click)="onClick($event)"
+    (mousedown)="onMouseDown($event)"
+    (dblclick)="onDblClick($event)"
+    (keydown)="onKeyDown($event)"
+    [ngStyle]="(editMode) ? focusStyle : style"
+    autocomplete="off"
+>

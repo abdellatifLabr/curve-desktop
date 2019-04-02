@@ -1,0 +1,14 @@
+.workspace{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.workspace .control-panel-container{
+    order: 2;
+}
+.workspace .display{
+    order: 1;
+    flex-grow: 1;
+    overflow: auto;
+    text-align: center;
+}

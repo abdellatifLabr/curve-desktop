@@ -1,0 +1,30 @@
+.collapsable {
+    border-bottom: 1px solid #ddd;
+    .header {
+        display: flex;
+        align-items: center;
+        .text {
+            padding: 15px; 
+            flex-grow: 1;
+            color: #bbb;
+            font-size: 11px;
+            font-family: 'Roboto Bold';
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .icon {
+            padding: 15px;
+            font-size: 14px;
+            color: #bbb;
+            cursor: pointer;
+        }
+    }
+    .body {
+        padding: 0px 15px 15px 15px;
+        &.hide {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    }
+}

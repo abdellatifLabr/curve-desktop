@@ -1,0 +1,13 @@
+<div 
+  class="alert {{ type }}"
+  [class.hide]="hide" 
+  [ngStyle]="{
+    'top': (position[0] == 'top') ? '10px' : 'auto',
+    'bottom': (position[0] == 'bottom') ? '10px' : 'auto',
+    'right': (position[1] == 'right') ? '10px' : 'auto',
+    'left': (position[1] == 'left') ? '10px' : 'auto',
+    'opacity': (hide) ? '0' : '1',
+    'transition': 'opacity linear 0.4s 0s'
+  }">
+  {{ message }}
+</div>

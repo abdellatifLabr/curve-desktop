@@ -1,0 +1,226 @@
+<div class="panel">
+  <div class="view-name">{{ view.name }}</div>
+  <div class="toolbar border-bottom" *ngIf="datasets && options">
+    <div class="item icon" (click)="draw()"><i class="fas fa-paint-brush"></i></div>
+    <div class="item icon" [ngClass]="{ 'disabled': !isChanges }" (click)="saveChanges()">
+      <i class="fas fa-save"></i>
+    </div>
+    <div class="item icon" (click)="refresh()"><i class="fas fa-redo-alt"></i></div>
+    <div class="separator"></div>
+    <div class="item icon" (click)="helpModal = !helpModal"><i class="fas fa-question"></i></div>
+  </div>
+  <tabset>
+    <div class="tabs">
+      <div class="tab" tabHeader="1" [isActive]="true">
+        <div class="icon"><i class="fas fa-chart-line"></i></div>
+        <div class="text">Datasets</div>
+      </div>
+      <div class="tab" tabHeader="2">
+        <div class="icon"><i class="fas fa-palette"></i></div>
+        <div class="text">Appearence</div>
+      </div>
+      <div class="tab" tabHeader="3">
+        <div class="icon"><i class="fas fa-cog"></i></div>
+        <div class="text">Settings</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="tab-content active" tabContent="1">
+        <div class="toolbar border-bottom border-top">
+          <div class="item menu" (click)="menu.hidden = !menu.hidden">
+            <i class="fas fa-plus"></i>
+            <div class="menu-list" #menu hidden>
+              <div class="menu-item" *ngFor="let type of types" (click)="createNewDataset(type.id)">
+                {{ type.name | noUnderscore | titlecase }}
+              </div>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <div class="item icon" (click)="minimizeDatasetsCtrl = false" *ngIf="minimizeDatasetsCtrl">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div class="item icon" (click)="minimizeDatasetsCtrl = true" *ngIf="!minimizeDatasetsCtrl">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+          <div class="item menu" (click)="filterMenu.hidden = !filterMenu.hidden">
+            <i class="fas fa-filter"></i>
+            <div class="menu-list" #filterMenu hidden>
+              <div class="menu-item" (click)="setFilter('*')">All</div>
+              <div class="menu-item" *ngFor="let type of types" (click)="setFilter(type.name)">
+                {{ type.name | noUnderscore | titlecase | pluralize }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="datasets">
+          <dataset-control *ngFor="let dataset of datasets; let i = index;" [minimized]="minimizeDatasetsCtrl"
+            [(ngModel)]="datasets[i]" (delete)="onDatasetDelete($event)" [hidden]="!filterCheck(dataset)"></dataset-control>
+        </div>
+      </div>
+      <div class="tab-content" tabContent="2" *ngIf="options">
+        <collapsable title="Scale">
+          <form>
+            <div class="form">
+              <div class="field-group">
+                <div class="field">
+                  <div class="input">
+                    <div class="label left">X</div>
+                    <input type="number" name="scale_x_from" [(ngModel)]="options.scale.x.from">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="fas fa-arrow-right"></div>
+                </div>
+                <div class="field">
+                  <div class="input-group">
+                    <div class="input">
+                      <input type="number" name="scale_x_to_value" [(ngModel)]="options.scale.x.to.value">
+                    </div>
+                    <div class="input">
+                      <select [(ngModel)]="options.scale.x.to.unit" name="scale_x_to_unit">
+                        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field-group">
+                <div class="field">
+                  <div class="input">
+                    <div class="label left">Y</div>
+                    <input type="number" name="scale_y_from" [(ngModel)]="options.scale.y.from">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="fas fa-arrow-right"></div>
+                </div>
+                <div class="field">
+                  <div class="input-group">
+                    <div class="input">
+                      <input type="number" name="scale_y_to_value" [(ngModel)]="options.scale.y.to.value">
+                    </div>
+                    <div class="input">
+                      <select [(ngModel)]="options.scale.y.to.unit" name="scale_y_to_unit">
+                        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </collapsable>
+        <collapsable title="Background">
+          <color-picker label="Background" name="BackColorPicker" [(ngModel)]="options.background.color">
+          </color-picker>
+        </collapsable>
+        <collapsable title="Padding">
+          <form>
+            <div class="form">
+              <div class="field-group">
+                <div class="field">
+                  <div class="input">
+                    <div class="left icon">
+                      <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <input type="number" name="padding_left" [(ngModel)]="options.padding.left">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="input">
+                    <div class="left icon">
+                      <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <input type="number" name="padding_right" [(ngModel)]="options.padding.right">
+                  </div>
+                </div>
+              </div>
+              <div class="field-group">
+                <div class="field">
+                  <div class="input">
+                    <div class="left icon">
+                      <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <input type="number" name="padding_bottom" [(ngModel)]="options.padding.bottom">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="input">
+                    <div class="left icon">
+                      <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <input type="number" name="padding_top" [(ngModel)]="options.padding.top">
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="input">
+                  <div class="label left">Unit</div>
+                  <select name="padding_unit" [(ngModel)]="options.padding.unit">
+                    <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </collapsable>
+      </div>
+      <div class="tab-content" tabContent="3" *ngIf="options">
+        <collapsable title="View">
+          <form>
+            <div class="form">
+              <div class="field">
+                <div class="input">
+                  <div class="left label">Title</div>
+                  <input type="text" name="view_title" [(ngModel)]="options.view.title.text">
+                </div>
+              </div>
+              <div class="field">
+                <div class="checkbox">
+                  <input type="checkbox" id="my-checkbox-6" name="show_title" [(ngModel)]="options.view.title.show">
+                  <label for="my-checkbox-6"></label>
+                </div>
+                &nbsp; <label class="right">Show Title</label>
+              </div>
+            </div>
+          </form>
+        </collapsable>
+        <collapsable title="Legend">
+          <form>
+            <div class="form">
+              <div class="field">
+                <div class="checkbox">
+                  <input type="checkbox" id="my-checkbox-5" name="legend_show" [(ngModel)]="options.legend.show">
+                  <label for="my-checkbox-5"></label>
+                </div>
+                &nbsp;<label class="right">Show Legend</label>
+              </div>
+              <div class="field-group">
+                <div class="field">
+                  <div class="input">
+                    <div class="label left">
+                      <div class="text">x</div>
+                    </div>
+                    <input type="number" name="legend_pos_x" [(ngModel)]="options.legend.position.x">
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="input">
+                    <div class="label left">
+                      <div class="text">y</div>
+                    </div>
+                    <input type="number" name="legend_pos_y" [(ngModel)]="options.legend.position.y">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </collapsable>
+      </div>
+    </div>
+  </tabset>
+</div>
+
+<modal title="Help" [show]="helpModal" size="large">
+  <app-documentation></app-documentation>
+</modal>

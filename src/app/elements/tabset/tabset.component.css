@@ -1,0 +1,77 @@
+:host{
+    display: flex;
+    height: inherit;
+}
+.tabset{
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+}
+.tabset /deep/ .tabs{
+    background: #fafafa;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.tabset /deep/ .tabs .tab{
+    flex-grow: 1;
+    text-align: center;
+    padding: 6px;
+    padding-top: 9px;
+    color: #ccc;
+    border-bottom: 3px solid #fafafa;
+    cursor: pointer;
+}
+.tabset /deep/ .tabs .tab.active{
+    color: #555;
+    border-bottom: 3px solid #555;
+}
+.tabset /deep/ .tabs .tab .icon{
+    font-size: 18px;
+}
+.tabset /deep/ .tabs .tab .text{
+    font-family: 'Roboto Bold';
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+}
+.tabset /deep/ .content {
+    display: flex;
+    height: 100%;
+}
+.tabset /deep/ .content .tab-content{
+    display: none;
+    width: 100%;
+}
+.tabset /deep/ .content .tab-content.padding{
+    padding: 10px;
+}
+.tabset /deep/ .content .tab-content.active{
+    display: block;
+    overflow: auto;
+}
+.tabset /deep/ .content .tab-content .section{
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+.tabset /deep/ .content .tab-content .section .section-header{
+    display: flex;
+    margin-bottom: 10px;
+}
+.tabset /deep/ .content .tab-content .section .section-header .name{
+    font-family: 'Roboto Bold';
+    font-size: 11px;
+    color: #bbb;
+    flex-grow: 1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+.tabset /deep/ .content .tab-content .section .section-header .icon{
+    color: #bbb;
+    font-size: 14px;
+}
+.tabset /deep/ .content .tab-content .section .section-body{
+}

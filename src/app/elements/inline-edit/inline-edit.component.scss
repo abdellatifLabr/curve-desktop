@@ -1,0 +1,19 @@
+input {
+    width: 100%;
+    cursor: inherit;
+    border: none;
+    background: none;
+    transition: background linear 0.1s 0s;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: center;
+    color: inherit;
+    &:focus {
+        cursor: text;
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+    }
+}

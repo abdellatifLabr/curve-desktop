@@ -1,0 +1,111 @@
+<tabset>
+  <div class="tabs">
+    <div class="tab" tabHeader="funcs" [isActive]="true">
+      <div class="text">Functions</div>
+    </div>
+    <div class="tab" tabHeader="units">
+      <div class="text">Units</div>
+    </div>
+    <div class="tab" tabHeader="prefixes">
+      <div class="text">Prefixes</div>
+    </div>
+    <div class="tab" tabHeader="constants">
+      <div class="text">Universal Constants</div>
+    </div>
+    <div class="tab" tabHeader="adopted_values">
+      <div class="text">Adopted Values</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="tab-content active padding" tabContent="funcs">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let func of docs.functions">
+            <td>{{ func.name }}</td>
+            <td>{{ func.desc }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content padding" tabContent="units">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Base</th>
+            <th>Unit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let unit of docs.units">
+            <td>{{ unit.base }}</td>
+            <td>{{ unit.unit }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content padding" tabContent="prefixes">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abbreviation</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pre of [].concat.apply([], docs.prefixes)">
+            <td>{{ pre.name }}</td>
+            <td>{{ pre.abbreviation }}</td>
+            <td>{{ pre.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content padding" tabContent="constants">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Value</th>
+            <th>Unit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let uc of [].concat.apply([], docs.universal_constants)">
+            <td>{{ uc.name }}</td>
+            <td>{{ uc.symbol }}</td>
+            <td>{{ uc.value }}</td>
+            <td>{{ uc.unit }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-content padding" tabContent="adopted_values">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Value</th>
+            <th>Unit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let av of docs.adopted_values">
+            <td>{{ av.name }}</td>
+            <td>{{ av.symbol }}</td>
+            <td>{{ av.value }}</td>
+            <td>{{ av.unit }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</tabset>

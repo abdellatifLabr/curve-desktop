@@ -1,0 +1,11 @@
+<div class="modal" [ngClass]="size" [class.show]="show">
+  <div class="header">
+    <div class="text">{{ title }}</div>
+    <div class="icon" (click)="close()">
+      <i class="fas fa-times"></i>
+    </div>
+  </div>
+  <div class="body">
+    <ng-content></ng-content>
+  </div>
+</div>

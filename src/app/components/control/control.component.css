@@ -1,0 +1,88 @@
+.panel{
+    background: #fdfdfd;
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.panel .view-name{
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding: 9px;
+    font-size: 15px;
+    font-family: 'Roboto Medium';
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.panel .toolbar{
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.panel .toolbar .item{
+    flex-basis: 12.5%;
+    min-width: 12.5%;
+    max-width: 12.5%;
+    text-align: center;
+    padding: 9px;
+    color: #555;
+    cursor: pointer;
+    transition: background linear 0.1s 0s;
+}
+.panel .toolbar.border-top{
+    border-top: 1px solid #ddd;
+}
+.panel .toolbar.border-bottom{
+    border-bottom: 1px solid #ddd;
+}
+.panel .toolbar .icon{
+    font-size: 17px;
+}
+.panel .toolbar .icon.disabled {
+    color: #ccc;
+}
+.panel .toolbar .icon.disabled:active{
+    background: none;
+}
+.panel .toolbar .icon:active{
+    background: #eaeaea;
+}
+.panel .toolbar .separator{
+    background: #ddd;
+    width: 1px;
+    height: 25px;
+    margin: 0px 9px;
+}
+.panel .toolbar .menu{
+    position: relative;
+}
+.panel .toolbar .menu .menu-list{
+    position: absolute;
+    background: #fff;
+    color: #000;
+    top: 100%;
+    left: 0px;
+    border-radius: 0px 0px 4px 4px;
+    border: 1px solid #ddd;
+    z-index: 99;
+}
+.panel .toolbar .menu .menu-list .menu-item{
+    text-align: left;
+    font-size: 13px;
+    padding: 5px 8px;
+    white-space: nowrap;
+}
+.panel .toolbar .menu .menu-list .menu-item:hover{
+    background: #ededed;
+}
+.panel .datasets{
+    padding: 15px;
+}
+.panel .datasets dataset-control /deep/ .dataset{
+    margin-bottom: 15px;
+}
+.panel .datasets dataset-control:last-child /deep/ .dataset{
+    margin-bottom: 0px;
+}

@@ -1,0 +1,16 @@
+<div class="overlay">
+  <div class="modal" [ngClass]="size">
+    <div class="header">
+      {{ title }}
+    </div>
+    <div class="body">
+      {{ message }}
+    </div>
+    <div class="footer">
+      <div class="btn-group">
+        <button class="large success" (click)="approve()">Yes</button>
+        <button class="large default" (click)="deny()">No</button>
+      </div>
+    </div>
+  </div>
+</div>
