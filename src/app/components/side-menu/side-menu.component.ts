@@ -1,12 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { View } from '../../interfaces/view';
-import { ViewsService } from '../../services/views.service';
-import { OptionsService } from '../../services/options.service';
-import { DatasetService } from '../../services/dataset.service';
-import { ProjectsService } from '../../services/projects.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ViewsService, OptionsService, DatasetService, ProjectsService, DialogsService } from '../../services';
+import {  Project, _Project, ImportedProject, View, _View, ImportedView, Type } from '../../interfaces';
 import * as _ from 'lodash';
-import { DialogsService } from '../../services/dialogs.service';
-import { Observable, from } from 'rxjs';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-side-menu',
@@ -14,15 +10,15 @@ import { Observable, from } from 'rxjs';
   styleUrls: ['./side-menu.component.css']
 })
 export class SideMenuComponent implements OnInit {
-  project: any;
-  projects: any[] = [];
+  project: Project;
+  projects: Project[] = [];
   @Output() view: EventEmitter<View> = new EventEmitter<View>();
   views: View[] = [];
-  newView: any = { projectId: 0, name: '' };
+  newView: _View = { projectId: 0, name: '' };
   activeView: View;
-  types: any[] = [];
+  types: Type[] = [];
   newProjectModal: boolean = false;
-  newProject: any = { title: '', createdIn: '' };
+  newProject: _Project = { title: '' };
 
   constructor(
     private viewsProvider: ViewsService,
@@ -102,7 +98,7 @@ export class SideMenuComponent implements OnInit {
     this.view.emit(view);
   }
 
-  setActiveProject(project) {
+  setActiveProject(project: Project) {
     this.project = project;
     this.loadViews();
   }
@@ -140,15 +136,15 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
-  isActiveView(view) {
+  isActiveView(view: View) {
     return this.activeView == view;
   }
 
-  isActiveProject(project) {
+  isActiveProject(project: Project) {
     return this.project == project;
   }
 
-  onProjectDelete(project) {
+  onProjectDelete(project: Project) {
     this.dialogsCtrl.open({
       title: 'Delete Project',
       message: `Are you sure you want to delete '${project.title}'?`,
@@ -171,7 +167,7 @@ export class SideMenuComponent implements OnInit {
       .catch(console.log);
   }
 
-  editProject(project) {
+  editProject(project: Project) {
     this.projectsProvider.EditProject(project)
       .then(newProject => {
         const i = _.findIndex(this.projects, { id: project.id });
@@ -181,7 +177,7 @@ export class SideMenuComponent implements OnInit {
       .catch(console.log);
   }
 
-  exportProject(project) {
+  exportProject(project: Project) {
     this.buildProjectJSON(project)
       .then(json => {
         const lnk = document.createElement('a');
@@ -191,7 +187,7 @@ export class SideMenuComponent implements OnInit {
       });
   }
 
-  buildProjectJSON(project): Promise<string> {
+  buildProjectJSON(project: Project): Promise<string> {
     return new Promise((res, rej) => {
       this.projectsProvider.getProjectById(project.id, true)
         .then(project => {
@@ -227,18 +223,7 @@ export class SideMenuComponent implements OnInit {
       .catch(console.log);
   }
 
-  readImportdProject(file): Promise<any> {
-    return new Promise((res, rej) => {
-      const fileReader = new FileReader();
-      fileReader.onloadend = e => {
-        res(JSON.parse(fileReader.result.toString()));
-      };
-      fileReader.onerror = e => rej(e);
-      fileReader.readAsText(file);
-    });
-  }
-
-  createProjectFromFileData(i_project): Promise<any> {
+  createProjectFromFileData(i_project: ImportedProject): Promise<Project> {
     return new Promise((res, rej) => {
       this.projectsProvider.createProject(i_project)
         .then(newProject => {
@@ -255,7 +240,7 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
-  exportView(view) {
+  exportView(view: View) {
     this.viewsProvider.getViewById(view.id)
       .then(view => {
         const datasets = view.datasets.map(ds => {
@@ -291,7 +276,7 @@ export class SideMenuComponent implements OnInit {
       .catch(console.log);
   }
 
-  createViewFromFileData(i_view): Promise<any> {
+  createViewFromFileData(i_view: ImportedView): Promise<View> {
     return new Promise((res, rej) => {
       let view;
       this.viewsProvider.createView({ projectId: this.project.id, name: i_view.name }, false)
@@ -317,7 +302,18 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
-  readImportdView(file): Promise<any> {
+  readImportdView(file): Promise<ImportedView> {
+    return new Promise((res, rej) => {
+      const fileReader = new FileReader();
+      fileReader.onloadend = e => {
+        res(JSON.parse(fileReader.result.toString()));
+      };
+      fileReader.onerror = e => rej(e);
+      fileReader.readAsText(file);
+    });
+  }
+
+  readImportdProject(file): Promise<ImportedProject> {
     return new Promise((res, rej) => {
       const fileReader = new FileReader();
       fileReader.onloadend = e => {

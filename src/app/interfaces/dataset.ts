@@ -1,16 +1,20 @@
 import { Curve } from './curve';
 import { PointMark } from './point-mark';
+import { Grid } from './grid';
 
 export interface _Dataset {
-    id?: number;
     viewId: number;
     typeId: number;
     json: string;
 }
 
-export interface Dataset {
-    id?: number;
-    viewId: number;
+export interface Dataset extends _Dataset {
+    id: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface ImportedDataset {
     type: string;
-    data: Curve | PointMark;
+    data: Curve | PointMark | Grid;
 }

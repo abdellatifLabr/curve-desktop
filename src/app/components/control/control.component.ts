@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import * as _ from 'lodash';
-import { DatasetService } from '../../services/dataset.service';
+import { DatasetService, OptionsService, UnitsService, ViewsService, DialogsService } from '../../services';
 import { Dataset, _Dataset } from '../../interfaces/dataset';
-import { OptionsService } from 'src/app/services/options.service';
-import { UnitsService } from '../../services/units.service';
+import { View, Type } from '../../interfaces';
 import { Options, _Options } from 'src/app/interfaces/options';
-import { ViewsService } from 'src/app/services/views.service';
-import { DialogsService } from '../../services/dialogs.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-control',
@@ -16,8 +13,8 @@ import { DialogsService } from '../../services/dialogs.service';
 export class ControlComponent implements OnInit, OnChanges {
   @Output('datasets') datasetsEmitter: EventEmitter<Dataset[]> = new EventEmitter<Dataset[]>();
   @Output('options') optionsEmitter: EventEmitter<Options> = new EventEmitter<Options>();
-  @Input() view: any;
-  types: any[] = [];
+  @Input() view: View;
+  types: Type[] = [];
   datasets: any[] = [];
   filter: string = '*';
   options: any;
@@ -176,7 +173,7 @@ export class ControlComponent implements OnInit, OnChanges {
     });
   }
 
-  setFilter(type) {
+  setFilter(type: string) {
     this.filter = type;
   }
 

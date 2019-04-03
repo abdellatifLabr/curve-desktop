@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash';
-import { Dataset } from 'src/app/interfaces/dataset';
+import { ImportedDataset, View, Curve, PointMark, Grid } from '../../interfaces';
 import { Options } from 'src/app/interfaces/options';
-import { DatasetParserService } from '../../services/dataset-parser.service';
-import { ProjectsService } from 'src/app/services/projects.service';
-import { UnitsService } from '../../services/units.service';
+import { DatasetParserService, UnitsService } from '../../services';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'workspace',
@@ -12,9 +10,9 @@ import { UnitsService } from '../../services/units.service';
   styleUrls: ['./workspace.component.css']
 })
 export class WorkspaceComponent implements OnInit {
-  view: any;
+  view: View;
   options: Options;
-  data: { curves: any[], pointMarks: any[], grids: any[] } = { curves: [], pointMarks: [], grids: [] };
+  data: { curves: Curve[], pointMarks: PointMark[], grids: Grid[] } = { curves: [], pointMarks: [], grids: [] };
   expandedView: boolean = false;
 
   constructor(
@@ -29,7 +27,7 @@ export class WorkspaceComponent implements OnInit {
     });
   }
 
-  onDatasets(datasets: Dataset[]) {
+  onDatasets(datasets: ImportedDataset[]) {
     const curves = datasets.filter(ds => ds.type == 'CURVE').map(ds => ds.data);
     const pointMarks = datasets.filter(ds => ds.type == 'POINT_MARK').map(ds => ds.data);
     const grids = datasets.filter(ds => ds.type == 'GRID').map(ds => ds.data);
@@ -44,7 +42,7 @@ export class WorkspaceComponent implements OnInit {
     this.options = options;
   }
 
-  onViewSet(view) {
+  onViewSet(view: View) {
     this.view = view;
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { placeholders } from './placeholders';
 import { ElectronService } from 'ngx-electron';
+import { _Type } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class DatasetService {
     });
   }
 
-  createType(type): Promise<any> {
+  createType(type: _Type): Promise<any> {
     return new Promise((res, rej) => {
       this.electron.ipcRenderer.send('create-type', type);
       this.electron.ipcRenderer.on('type-created', (event, type) => {
@@ -44,7 +45,7 @@ export class DatasetService {
     });
   }
 
-  getType(name): Promise<any> {
+  getType(name: string): Promise<any> {
     return new Promise((res, rej) => {
       this.electron.ipcRenderer.send('fetch-type', name);
       this.electron.ipcRenderer.on('type-fetched', (event, type) => {

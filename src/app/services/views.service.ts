@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { ElectronService } from 'ngx-electron';
+import { _View, View } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewsService {
-  views: any;
 
   constructor(
     private electron: ElectronService
@@ -30,7 +30,7 @@ export class ViewsService {
     });
   }
 
-  createView(view: any, createOptions=true): Promise<any> {
+  createView(view: _View, createOptions=true): Promise<any> {
     return new Promise((res, rej) => {
       this.electron.ipcRenderer.send('create-view', view, createOptions);
       this.electron.ipcRenderer.on('view-created', (event, view) => {
@@ -48,7 +48,7 @@ export class ViewsService {
     });
   }
 
-  EditView(view: any): Promise<any> {
+  EditView(view: View): Promise<any> {
     return new Promise((res, rej) => {
       this.electron.ipcRenderer.send('update-view', view);
       this.electron.ipcRenderer.on('view-updated', (event, view) => {

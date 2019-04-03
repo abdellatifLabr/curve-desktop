@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../interfaces/project';
-import { ViewsService } from './views.service';
+import { Project, _Project } from '../interfaces/project';
 import { ElectronService } from 'ngx-electron';
 
 @Injectable({
@@ -21,7 +20,7 @@ export class ProjectsService {
     });
   }
 
-  createProject(project): Promise<any> {
+  createProject(project: _Project): Promise<any> {
     return new Promise((res, rej) => {
       this.electron.ipcRenderer.send('create-project', project);
       this.electron.ipcRenderer.on('project-created', (event, project) => {

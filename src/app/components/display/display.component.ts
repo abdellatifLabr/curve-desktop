@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, SimpleChanges, AfterViewInit } from '@angular/core';
 import { Options } from 'src/app/interfaces/options';
-import { PainterService } from '../../services/painter.service';
-import { UnitsService } from '../../services/units.service';
+import { PainterService, UnitsService } from '../../services';
 import { Unit } from 'src/app/interfaces/unit';
 import * as _ from 'lodash';
 
