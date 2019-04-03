@@ -68,6 +68,11 @@ export class ControlComponent implements OnInit, OnChanges {
       .catch(console.log);
   }
 
+  createNewUnit(unit) {
+    // create unit
+    // push the name to this.units array
+  }
+
   ngOnChanges(changes) {
     this.firstChange = true;
     if (changes.view.currentValue) {
