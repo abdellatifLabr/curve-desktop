@@ -56,7 +56,7 @@
     "ngx-electron": "^2.1.1",
     "pluralize": "^7.0.0",
     "rxjs": "^6.0.0",
-    "sequelize": "^5.2.3",
+    "sequelize": "^5.15.1",
     "sqlite3": "^4.0.6",
     "zone.js": "^0.8.26"
   },
